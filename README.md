@@ -1,0 +1,1 @@
+# sofka_bank_event_consumer
