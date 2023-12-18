@@ -8,9 +8,6 @@ import java.security.NoSuchAlgorithmException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpAdmin;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,12 +18,9 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 import reactor.rabbitmq.RabbitFlux;
 import reactor.rabbitmq.Receiver;
 import reactor.rabbitmq.ReceiverOptions;
-import reactor.rabbitmq.Sender;
-import reactor.rabbitmq.SenderOptions;
 
 @Configuration
 public class RabbitConf {
@@ -47,22 +41,6 @@ public class RabbitConf {
 
 		CachingConnectionFactory connectionFactory = new CachingConnectionFactory(URI.create(uri_name));
 		var amqpAdmin = new RabbitAdmin(connectionFactory);
-/*
-		var exchangeOne = new TopicExchange(EXCHANGE_NAME_1);
-		var queueOne = new Queue(QUEUE_ERROR, true, false, false);
-
-		var exchangeTwo = new TopicExchange(EXCHANGE_NAME_2);
-		var queueTwo = new Queue(QUEUE_LOGS, true, false, false);
-
-		amqpAdmin.declareExchange(exchangeOne);
-		amqpAdmin.declareQueue(queueOne);
-
-		amqpAdmin.declareExchange(exchangeTwo);
-		amqpAdmin.declareQueue(queueTwo);
-
-		amqpAdmin.declareBinding(BindingBuilder.bind(queueOne).to(exchangeOne).with(ROUTING_KEY_NAME_1));
-		amqpAdmin.declareBinding(BindingBuilder.bind(queueTwo).to(exchangeTwo).with(ROUTING_KEY_NAME_2));
-*/
 		return amqpAdmin;
 	}
 
